@@ -143,7 +143,7 @@ class DatasetHCPRest(torch.utils.data.Dataset):
         super().__init__()
         self.target_feature = target_feature
         # self.filename = 'hcp-rest1200_schaefer2018_200Parcels_7Networks_timeseries200x1200'
-        data_dir = '/cbica/home/lihon/comp_space/ForTingting'
+        data_dir = '/xxxx/home/xxxx/xxx/xxxx'
         self.filename = 'hcp_rfMRI_REST1_LR_tc_Schaefer2018_400Parcels'
         self.sourcedir = sourcedir
         if os.path.isfile(os.path.join(data_dir, f'{self.filename}.pt')):
@@ -198,7 +198,7 @@ class DatasetHCPRest_static(torch.utils.data.Dataset):
     def __init__(self, sourcedir, k_fold=None, target_feature='Gender', train=True, regression=False):
         super().__init__()
         self.target_feature = target_feature
-        data_dir = '/cbica/home/lihon/comp_space/ForTingting'
+        data_dir = '/xxxx/home/xxxx/xxxx/xxxx'
         self.filename = 'hcp_rfMRI_REST1_LR_fc_Schaefer2018_400Parcels'
         if os.path.isfile(os.path.join(data_dir, f'{self.filename}.pt')):
             self.timeseries_dict = torch.load(os.path.join(data_dir, f'{self.filename}.pt'))
