@@ -4,7 +4,7 @@ import numpy as np
 from sklearn import metrics
 
 
-class LoggerfMRIExperts(object):
+class LoggerdFCExperts(object):
     def __init__(self, k_fold=None, num_classes=None):
         super().__init__()
         self.k_fold = k_fold
