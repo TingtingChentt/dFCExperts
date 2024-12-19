@@ -7,7 +7,7 @@ from random import randrange
 from dataset import *
 from tqdm import tqdm
 from einops import repeat
-from model import fMRIExperts
+from model import dFCExperts
 
 from torch.utils.tensorboard import SummaryWriter
 import torch.profiler
