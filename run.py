@@ -98,7 +98,7 @@ def train(argv):
         dataset.set_fold(k, train=True)
 
         # define model
-        model = fMRIExperts(argv, num_features=dataset.num_nodes, num_classes=dataset.num_classes)
+        model = dFCExperts(argv, num_features=dataset.num_nodes, num_classes=dataset.num_classes)
         model.to(device)
 
         if checkpoint['model'] is not None: model.load_state_dict(checkpoint['model'])
@@ -111,7 +111,7 @@ def train(argv):
         # define logging objects
         summary_writer = SummaryWriter(os.path.join(argv.targetdir, 'summary', str(k), 'train'), )
         summary_writer_val = SummaryWriter(os.path.join(argv.targetdir, 'summary', str(k), 'val'), )
-        logger = util.logger.LoggerfMRIExperts(dataset.folds, dataset.num_classes)
+        logger = util.logger.LoggerdFCExperts(dataset.folds, dataset.num_classes)
 
         best_acc, best_mse = 0.0, np.inf
         # start training
@@ -254,10 +254,10 @@ def test(argv):
     else: raise
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=argv.num_workers, pin_memory=True)
      # define logging objects
-    logger = util.logger.LoggerfMRIExperts(num_classes=dataset.num_classes)
+    logger = util.logger.LoggerdFCExperts(num_classes=dataset.num_classes)
 
     for k in dataset.folds:
-        model = fMRIExperts(argv, num_features=dataset.num_nodes, num_classes=dataset.num_classes)
+        model = dFCExperts(argv, num_features=dataset.num_nodes, num_classes=dataset.num_classes)
         model.to(device)
         model.load_state_dict(torch.load(os.path.join(argv.targetdir, 'model', str(k), argv.test_model_name+'.pth')))
         print('load model from:', os.path.join(argv.targetdir, 'model', str(k), argv.test_model_name+'.pth'))
