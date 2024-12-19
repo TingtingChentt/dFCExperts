@@ -169,7 +169,7 @@ class ModularityEx(nn.Module):
         return rearrange(out, '(b t) c -> b t c', b=minibatch_size, t=times)
     
 
-class fMRIExperts(nn.Module):
+class dFCExperts(nn.Module):
     def __init__(self, argv, num_features, num_classes):
         super().__init__()
         self.s_ex_loss_coeff = argv.state_ex_loss_coeff
