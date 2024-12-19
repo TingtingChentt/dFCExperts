@@ -1,5 +1,5 @@
-# fMRIExperts
-This repository is the official implementation of paper "fMRIExperts: Learning Dynamic Functional Connectivity Patterns with Modularity and State Experts". 
+# dFCExperts
+This repository is the official implementation of paper "dFCExperts: Learning Dynamic Functional Connectivity Patterns with Modularity and State Experts". 
 
 
 ## Dataset
