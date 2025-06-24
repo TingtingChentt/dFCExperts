@@ -73,6 +73,8 @@ def train(argv):
     # abcd, target_feature: sex, p_factor, pc1
     elif argv.dataset=='abcd-dyn': 
         dataset = DatasetABCD_dyn(argv.sourcedir, k_fold=argv.k_fold, target_feature=argv.target_feature, train=True, regression=argv.regression, dynamic_length=argv.dynamic_length)
+    elif argv.dataset=='hcp-sample':
+        dataset = DatasetSamples(argv.sourcedir, k_fold=argv.k_fold, target_feature=argv.target_feature, regression=argv.regression)
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=argv.minibatch_size, shuffle=False, num_workers=argv.num_workers, pin_memory=True)
 
     # resume checkpoint if file exists
@@ -251,6 +253,7 @@ def test(argv):
     # define dataset
     if argv.dataset=='hcp-dyn': dataset = DatasetHCPRest(argv.sourcedir, k_fold=argv.k_fold, target_feature=argv.target_feature, regression=argv.regression)
     elif argv.dataset=='abcd-dyn': dataset = DatasetABCD_dyn(argv.sourcedir, k_fold=argv.k_fold, target_feature=argv.target_feature, train=False, regression=argv.regression)
+    elif argv.dataset=='hcp-sample': dataset = DatasetSamples(argv.sourcedir, k_fold=argv.k_fold, target_feature=argv.target_feature, regression=argv.regression)
     else: raise
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=argv.num_workers, pin_memory=True)
      # define logging objects
