@@ -6,6 +6,59 @@ from random import shuffle, randrange
 from sklearn.model_selection import StratifiedKFold
 
 
+class DatasetSamples(torch.utils.data.Dataset):
+    def __init__(self, sourcedir, k_fold=None, target_feature='Gender', regression=False):
+        super().__init__()
+        self.target_feature = target_feature
+        data_dir = 'dFCExperts/data/samples/'
+        self.filename = 'sample_timeseries_data'
+        self.sourcedir = sourcedir
+        if os.path.isfile(os.path.join(data_dir, f'{self.filename}.pt')):
+            self.timeseries_dict = torch.load(os.path.join(data_dir, f'{self.filename}.pt'))
+        
+        if os.path.isfile(os.path.join(sourcedir, 'samples', 'sample_split_6folds.pth')):
+            self.split_subject = torch.load(os.path.join(sourcedir, 'hcp1200', 'sample_split_6folds.pth'))
+
+        self.num_nodes = list(self.timeseries_dict.values())[0].shape[0]
+        behavioral_df = pd.read_csv(os.path.join(sourcedir, 'samples', 'label.csv')).set_index('Subject')
+        self.num_classes = 1 if regression else len(behavioral_df[target_feature].unique())
+        self.behavioral_dict = behavioral_df[target_feature].to_dict()  # {100206:'M'}
+
+        if isinstance(k_fold, int):
+            self.folds = list(range(k_fold))
+
+
+    def __len__(self):
+        return len(self.subject_list)
+
+
+    def set_fold(self, fold, train=True, val=False, test=False):
+        if train:
+            self.subject_list = self.split_subject['train'][fold]
+        if val:
+            self.subject_list = self.split_subject['val'][fold]
+        if test:
+            self.subject_list = self.split_subject['test'][fold]
+
+
+    def __getitem__(self, idx):
+        subject = self.subject_list[idx]
+        timeseries = self.timeseries_dict[subject].transpose()
+        timeseries = (timeseries - np.mean(timeseries, axis=0, keepdims=True)) / (np.std(timeseries, axis=0, keepdims=True) + 1e-9)
+        label = self.behavioral_dict[int(subject)]
+
+        if self.target_feature == 'Gender':
+            if label=='F':
+                label = 0
+            elif label=='M':
+                label = 1
+            else:
+                raise
+
+        return {'id': subject,
+                'timeseries': torch.tensor(timeseries, dtype=torch.float32), 
+                'label': torch.tensor(label)}
+    
 class DatasetABCD_dyn(torch.utils.data.Dataset):
     def __init__(self, sourcedir, k_fold=None, target_feature='sex', train=True, regression=False, dynamic_length=None):
         super().__init__()
