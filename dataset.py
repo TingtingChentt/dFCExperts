@@ -13,8 +13,8 @@ class DatasetSamples(torch.utils.data.Dataset):
         data_dir = 'dFCExperts/data/samples/'
         self.filename = 'sample_timeseries_data'
         self.sourcedir = sourcedir
-        if os.path.isfile(os.path.join(data_dir, f'{self.filename}.pt')):
-            self.timeseries_dict = torch.load(os.path.join(data_dir, f'{self.filename}.pt'))
+        if os.path.isfile(os.path.join(data_dir, f'{self.filename}.pth')):
+            self.timeseries_dict = torch.load(os.path.join(data_dir, f'{self.filename}.pth'))
         
         if os.path.isfile(os.path.join(sourcedir, 'samples', 'sample_split_6folds.pth')):
             self.split_subject = torch.load(os.path.join(sourcedir, 'hcp1200', 'sample_split_6folds.pth'))
