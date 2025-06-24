@@ -13,10 +13,15 @@ data (specified by option --sourcedir)
 │    ├─── hcp_rest_datasplit_5folds.pth
 │    ├─── hcp_rfMRI_REST1_LR_fc_Schaefer2018_400Parcels.pt
 │    └─── hcp_rfMRI_REST1_LR_tc_Schaefer2018_400Parcels.pt
-└───  abcd_abcc
-     ├─── 6195_timeseries-?x352.pth
-     ├─── datasplit_5folds.pth
+├─── abcd_abcc
+│    ├─── label.csv
+│    ├─── hcp_rest_datasplit_5folds.pth
+│    └─── hcp_rfMRI_REST1_LR_tc_Schaefer2018_400Parcels.pt
+└─── samples
+     ├─── sample_timeseries_data.pth
+     ├─── sample_split_6folds.pth
      └─── label.csv
+
 ```
    
 ## Requirements
@@ -30,11 +35,11 @@ pip install -r requirements.txt
 
 ## Training
 
-To train the model(s) in the paper, run this command:
+To train the model(s) with given sample data, run this command:
 
 ```train
 python3 main.py --exp_name 'hcp_c' \
-                --dataset 'hcp-dyn' \
+                --dataset 'hcp-sample' \
                 --targetdir './result' \
                 --target_feature 'Gender' \
                 --gin_type 'moe_gin' \
