@@ -1,3 +1,7 @@
+# Adapted from the STAGIN repository:
+# https://github.com/egyptdj/stagin
+# Original license terms apply (see LICENSE-STAGIN.txt)
+
 import os
 import util
 import random
