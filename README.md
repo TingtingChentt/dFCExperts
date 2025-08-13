@@ -57,3 +57,16 @@ python3 main.py --exp_name 'hcp_c' \
                 --test \
                 --test_model_name 'model_val_acc'
 ```
+
+## Acknowledgements
+
+Parts of the implementation in **dFCExpert** are adapted from the [STAGIN repository](https://github.com/egyptdj/stagin), developed by Diaa Badawi et al.
+
+We thank the authors of STAGIN for making their code publicly available.  
+The adapted portions are used in accordance with the STAGIN license, which is included in this repository as [LICENSE-STAGIN.txt](LICENSE-STAGIN.txt).
+
+If you use this repository in your work, please also cite the original STAGIN paper:
+
+> Badawi, D., Hjelm, R.D., & El-Baz, A. (2022). STAGIN: Spatio-Temporal Graph Inference Network. *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, pp. 14656–14666.  
+> https://openaccess.thecvf.com/content/CVPR2022/html/Badawi_STAGIN_Spatio-Temporal_Graph_Inference_Network_CVPR_2022_paper.html
+
